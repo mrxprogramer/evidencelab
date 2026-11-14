@@ -2,7 +2,7 @@ from app.text_processing import chunk_sections, extract_text
 
 
 def test_extract_text_utf8():
-    text, sections = extract_text("notes.txt", "hello world".encode())
+    text, sections = extract_text("notes.txt", b"hello world")
     assert text == "hello world"
     assert sections == [(None, "hello world")]
 
