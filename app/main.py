@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Annotated
+
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.responses import HTMLResponse
 
@@ -41,7 +43,7 @@ def home() -> str:
 
 
 @app.post("/documents", response_model=IngestResponse)
-async def upload_document(file: UploadFile = File(...)) -> dict:
+async def upload_document(file: Annotated[UploadFile, File()]) -> dict:
     content = await file.read(settings.max_upload_mb * 1024 * 1024 + 1)
     if len(content) > settings.max_upload_mb * 1024 * 1024:
         raise HTTPException(status_code=413, detail="File exceeds configured upload limit")
