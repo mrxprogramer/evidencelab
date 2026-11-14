@@ -1,0 +1,11 @@
+services:
+  evidencelab:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      EVIDENCELAB_DB_PATH: /srv/evidencelab/data/evidencelab.sqlite3
+    volumes:
+      - evidencelab_data:/srv/evidencelab/data
+volumes:
+  evidencelab_data:
