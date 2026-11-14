@@ -15,6 +15,8 @@ def tokenize(text: str) -> list[str]:
 
 def rank_chunks(question: str, chunks: list[dict], top_k: int = 5) -> list[dict]:
     """Rank chunks with a small BM25-style scorer and return score explanations."""
+    if top_k < 1:
+        raise ValueError("top_k must be at least 1")
     query_terms = tokenize(question)
     if not query_terms or not chunks:
         return []
