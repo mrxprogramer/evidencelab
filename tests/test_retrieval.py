@@ -1,3 +1,5 @@
+import pytest
+
 from app.retrieval import rank_chunks
 
 
@@ -13,3 +15,8 @@ def test_retriever_ranks_relevant_chunk_first():
 
 def test_retriever_returns_empty_for_no_match():
     assert rank_chunks("quantum telescope", [{"chunk_id": "x", "text": "bread and butter"}]) == []
+
+
+def test_retriever_rejects_non_positive_top_k():
+    with pytest.raises(ValueError, match="top_k"):
+        rank_chunks("test query", [{"chunk_id": "x", "text": "test query"}], 0)
