@@ -73,7 +73,7 @@ def query_documents(request: QueryRequest) -> dict:
 
 @app.post("/evaluate")
 def evaluate(request: EvaluationRequest) -> dict:
-    questions = request.questions
+    questions = [item.model_dump() for item in request.questions] if request.questions is not None else None
     if questions is None:
         import json
         from pathlib import Path
